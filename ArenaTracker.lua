@@ -1,10 +1,15 @@
 local print = print
 
+local GetArenaOpponentSpec = GetArenaOpponentSpec
+local GetNumArenaOpponentSpecs = GetNumArenaOpponentSpecs
 local IsInInstance = IsInInstance
+local UnitName = UnitName
 
 local ArenaEvents = {
   "ARENA_PREP_OPPONENT_SPECIALIZATIONS"
 }
+
+ArenaMatches = {}
 
 ArenaTracker = {}
 ArenaTracker.eventHandler = CreateFrame("Frame")
@@ -34,13 +39,12 @@ ArenaTracker.eventHandler:SetScript("OnEvent", function(self, event, ...)
 end)
 
 function ArenaTracker:RegisterEvents()
-  self:Debug("Registering events")
   self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
   self:RegisterEvent("PLAYER_ENTERING_WORLD", "ZONE_CHANGED_NEW_AREA")
 end
 
 function ArenaTracker:Enable()
-  self:Print("Welcome to ArenaTracker")
+  self:Print("Welcome to ArenaTracker");
 
   SlashCmdList["ARENATRACKER"] = function(...)
     ArenaTracker:DisplayMatches()
@@ -87,6 +91,31 @@ function ArenaTracker:UnregisterArenaEvents()
 end
 
 function ArenaTracker:ARENA_PREP_OPPONENT_SPECIALIZATIONS(event)
+  local numberOfOpponents = GetNumArenaOpponentSpecs()
+  local match = {}
+
+  for i = 1, numberOfOpponents do
+    local unit = "arena"..i
+    local specId = GetArenaOpponentSpec(i)
+    if specId > 0 then
+      match[unit] = {}
+      match[unit]["spec"] = specId
+      match[unit]["name"] = UnitName(unit)
+    end
+  end
+
+  table.insert(ArenaMatches, match)
 end
 
+function ArenaTracker:DisplayMatches()
+  for _, match in pairs(ArenaMatches) do
+    self:DisplayMatch(match)
+  end
+end
+
+function ArenaTracker:DisplayMatch(match)
+  for _, unit in pairs(match) do
+    self:Debug(unit["name"])
+    self:Debug(unit["spec"])
+  end
 end

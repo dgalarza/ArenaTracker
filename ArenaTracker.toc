@@ -2,5 +2,6 @@
 ## Title: ArenaTracker
 ## Version: 0.0.1
 ## Notes: Track detailed statistics about your arena matches
+## SavedVariablesPerCharacter: ArenaMatches
 
 ArenaTracker.lua
