@@ -8,3 +8,4 @@ event_handler.lua
 arena_match.lua
 arena_player.lua
 arena_tracker.lua
+main.lua
