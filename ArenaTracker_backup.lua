@@ -88,6 +88,7 @@ function ArenaTracker:JoinedArena()
 
   local numberOfOpponents = GetNumArenaOpponentSpecs()
   if (numberOfOpponents and numberOfOpponents > 0) then
+    local numberOfOpponents
     self:ARENA_PREP_OPPONENT_SPECIALIZATIONS()
   end
 end
