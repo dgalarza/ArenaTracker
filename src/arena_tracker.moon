@@ -1,6 +1,7 @@
+export ArenaMatches = {}
+
 export class ArenaTracker
   new: =>
-    @matches = {}
     print "Welcome to ArenaTracker"
 
   joined_arena: =>
@@ -23,6 +24,4 @@ export class ArenaTracker
     @currentMatch.saved = true
     @currentMatch\determine_result!
 
-    table.insert @matches, @currentMatch\toTable!
-
---EventHandler!
+    table.insert ArenaMatches, @currentMatch\toTable!

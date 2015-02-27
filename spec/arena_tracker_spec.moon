@@ -3,6 +3,9 @@ require "src/arena_tracker"
 require "src/arena_match"
 
 describe "ArenaTracker", ->
+  after_each ->
+    _G["ArenaMatches"] = {}
+
   it "prints a welcome message", ->
     print_spy = spy.on(_G, "print")
 
@@ -96,7 +99,7 @@ describe "ArenaTracker", ->
             .currentMatch = mockArenaMatch
             \score_updated!
 
-          assert.equal(mockArenaMatchTable, tracker.matches[1])
+          assert.equal(mockArenaMatchTable, ArenaMatches[1])
 
       context "current match already saved", ->
         it "does not add the current match into the matches table again", ->
@@ -111,7 +114,7 @@ describe "ArenaTracker", ->
             \score_updated!
 
           assert.spy(mockArenaMatch.determine_result).was_not_called!
-          assert.equal(nil, tracker.matches[1])
+          assert.equal(nil, ArenaMatches[1])
 
       context "winner is not available yet", ->
         it "does not add the current match to the matches table again", ->
@@ -126,7 +129,7 @@ describe "ArenaTracker", ->
             \score_updated!
 
           assert.spy(mockArenaMatch.determine_result).was_not_called!
-          assert.equal(nil, tracker.matches[1])
+          assert.equal(nil, ArenaMatches[1])
 
   export buildMockArenaMatch = (attributes = {}) ->
     defaults = {

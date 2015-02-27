@@ -1,3 +1,4 @@
+ArenaMatches = { }
 do
   local _base_0 = {
     joined_arena = function(self)
@@ -20,13 +21,12 @@ do
     track_match = function(self)
       self.currentMatch.saved = true
       self.currentMatch:determine_result()
-      return table.insert(self.matches, self.currentMatch:toTable())
+      return table.insert(ArenaMatches, self.currentMatch:toTable())
     end
   }
   _base_0.__index = _base_0
   local _class_0 = setmetatable({
     __init = function(self)
-      self.matches = { }
       return print("Welcome to ArenaTracker")
     end,
     __base = _base_0,
