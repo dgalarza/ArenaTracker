@@ -4,8 +4,8 @@
 ## Notes: Track detailed statistics about your arena matches
 ## SavedVariablesPerCharacter: ArenaMatches
 
-event_handler.lua
-arena_match.lua
-arena_player.lua
-arena_tracker.lua
-main.lua
+src/event_handler.lua
+src/arena_match.lua
+src/arena_player.lua
+src/arena_tracker.lua
+Init.lua
