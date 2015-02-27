@@ -1,6 +1,6 @@
 clean:
 	rm build/*
 
-compile:
+compile: clean
 	moonc src/
 	mv src/*.lua build/
