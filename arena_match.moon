@@ -25,15 +25,8 @@ export class ArenaMatch
 
     results
 
-  prepareOpponentSpecializations: ->
-    numberOfOpponents = GetNumArenaOpponentSpecs!
-    match = {}
-
-    for i = 1, numberOfOpponents do
-      unit = "arena"..i
-      specID = GetNumArenaOpponentSpecs(i)
-      if specID > 0
-        @updateUnit(unit, "spec", specID)
+  getWinner: ->
+    GetBattlefieldWinner!
 
   unitNameUpdated: (unit) =>
     if isValidUnit(unit)
@@ -42,8 +35,15 @@ export class ArenaMatch
       if name
         @updateUnit(unit, "name", name)
 
-  getWinner: ->
-    GetBattlefieldWinner!
+  prepareOpponentSpecializations: =>
+    numberOfOpponents = GetNumArenaOpponentSpecs!
+    match = {}
+
+    for i = 1, numberOfOpponents do
+      unit = "arena"..i
+      specID = GetArenaOpponentSpec(i)
+      if specID > 0
+        @updateUnit(unit, "spec", specID)
 
   updateUnit: (unit, attribute, value) =>
     @buildUnit(unit)

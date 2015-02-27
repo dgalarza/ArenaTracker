@@ -79,3 +79,28 @@ describe "ArenaMatch", ->
         match\prepare!
 
         assert.is_empty(match.players)
+
+    context "number of opponents is greater than 0", ->
+      context "Spec is available for player", ->
+        it "adds the opponent to the players table", ->
+          frostSpecId = 156
+          stubNumberOfArenaOpponents(1)
+          opponentSpecStub = stubOpponentSpec(frostSpecId)
+          match = ArenaMatch!
+
+          match\prepare!
+          arena1 = match.players["arena1"]
+
+          assert.stub(opponentSpecStub).was.called_with(1)
+          assert.equal(arena1.spec, frostSpecId)
+
+      context "Spec is not available for player", ->
+        it "does not add the opponent to the players table", ->
+          stubNumberOfArenaOpponents(1)
+          opponentSpecStub = stubOpponentSpec(0)
+          match = ArenaMatch!
+
+          match\prepare!
+
+          assert.stub(opponentSpecStub).was.called_with(1)
+          assert.is_empty(match.players)
