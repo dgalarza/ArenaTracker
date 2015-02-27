@@ -1,0 +1,81 @@
+require "spec/spec_helper"
+require "arena_match"
+require "arena_player"
+
+describe "ArenaMatch", ->
+  describe "#getWinner", ->
+    it "returns the result of GetBattlefieldWinner", ->
+      battlefieldWinnerStub = stub(_G, "GetBattlefieldWinner", "Horde")
+      match = ArenaMatch!
+
+      winner = match\getWinner!
+
+      assert.spy(battlefieldWinnerStub).was_called!
+      assert.equal(winner, "Horde")
+
+  describe "#determineResults", ->
+    context "my faction is the same as the winning faction", ->
+      it "marks the match as won", ->
+        stub(_G, "GetBattlefieldArenaFaction", "Alliance")
+        stub(_G, "GetBattlefieldWinner", "Alliance")
+        match = ArenaMatch!
+
+        match\determineResults!
+
+        assert.True(match.won)
+
+    context "my faction is different from the winning faction", ->
+      it "marks the match as lost", ->
+        stub(_G, "GetBattlefieldArenaFaction", "Alliance")
+        stub(_G, "GetBattlefieldWinner", "Horde")
+        match = ArenaMatch!
+
+        match\determineResults!
+
+        assert.False(match.won)
+
+  describe "#unitNameUpdated", ->
+    context "Unit is a pet", ->
+      it "does not update the given unit", ->
+        match = ArenaMatch!
+
+        match\unitNameUpdated("arenapet1")
+
+        assert.equal(match.players["arenapet1"], nil)
+
+    context "Unit is not an arena unit", ->
+      it "does not update the given unit", ->
+        match = ArenaMatch!
+
+        match\unitNameUpdated("some_unit")
+
+        assert.equal(match.players["some_unit"], nil)
+
+    context "Unit is valid arena unit" ,->
+      it "stores the unit's name", ->
+        unitNameSpy = stubUnitName("Doctype")
+        match = ArenaMatch!
+
+        match\unitNameUpdated("arena1")
+
+        assert.spy(unitNameSpy).was.called_with("arena1")
+        assert.equal(match.players["arena1"].name, "Doctype")
+
+  describe "#prepare", ->
+    context "number of opponents is nil", ->
+      it "does not create track any players", ->
+        stubNumberOfArenaOpponents(nil)
+        match = ArenaMatch!
+
+        match\prepare!
+
+        assert.is_empty(match.players)
+
+    context "number of opponents is 0", ->
+      it "does not create track any players", ->
+        stubNumberOfArenaOpponents(0)
+        match = ArenaMatch!
+
+        match\prepare!
+
+        assert.is_empty(match.players)

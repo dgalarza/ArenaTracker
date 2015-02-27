@@ -1,10 +1,9 @@
-export class ArenaMatch
-  saved: false
-  won: false
-  players: {}
 
+export class ArenaMatch
   new: =>
-    print "Match started"
+    @saved = false
+    @won = false
+    @players = {}
 
   prepare: =>
     numberOfOpponents = GetNumArenaOpponentSpecs!
@@ -34,23 +33,23 @@ export class ArenaMatch
       unit = "arena"..i
       specID = GetNumArenaOpponentSpecs(i)
       if specID > 0
-        updateUnit(unit, "spec", specID)
+        @updateUnit(unit, "spec", specID)
 
   unitNameUpdated: (unit) =>
     if isValidUnit(unit)
       name = UnitName(unit)
 
       if name
-        updateUnit(unit, "name", name)
+        @updateUnit(unit, "name", name)
 
   getWinner: ->
     GetBattlefieldWinner!
 
-  updateUnit = (unit, attribute, value) ->
-    buildUnit(unit)
+  updateUnit: (unit, attribute, value) =>
+    @buildUnit(unit)
     @players[unit][attribute] = value
 
-  buildUnit = (unit) ->
+  buildUnit: (unit) =>
     if @players[unit] == nil
       @players[unit] = ArenaPlayer!
 
