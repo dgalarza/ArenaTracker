@@ -1,6 +1,6 @@
 require "spec/spec_helper"
-require "arena_match"
-require "arena_player"
+require "src/arena_match"
+require "src/arena_player"
 
 describe "ArenaMatch", ->
   describe "#getWinner", ->

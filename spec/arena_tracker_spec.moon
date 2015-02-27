@@ -1,6 +1,6 @@
-require "event_handler"
-require "arena_tracker"
-require "arena_match"
+require "src/event_handler"
+require "src/arena_tracker"
+require "src/arena_match"
 
 describe "ArenaTracker", ->
   it "prints a welcome message", ->
