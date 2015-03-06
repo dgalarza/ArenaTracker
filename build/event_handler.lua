@@ -3,8 +3,8 @@ do
   local _base_0 = {
     bindEventLoop = function(self)
       local eventHandler = self
-      self.handler:RegisterEvent("PLAYER_LOGIN")
-      return self.handler:SetScript("OnEvent", function(self, event, ...)
+      self.frame:RegisterEvent("PLAYER_LOGIN")
+      return self.frame:SetScript("OnEvent", function(self, event, ...)
         if event == "PLAYER_LOGIN" then
           return eventHandler:initializeArenaTracker()
         else
@@ -27,15 +27,15 @@ do
     end,
     unbindArenaEvents = function(self)
       for event in pairs(ARENA_EVENTS) do
-        self.handler:UnregisterEvent(event)
+        self.frame:UnregisterEvent(event)
       end
     end,
     registerEvent = function(self, event, handler)
-      self.handler.events[event] = handler or event
-      return self.handler:RegisterEvent(event)
+      self.frame.events[event] = handler or event
+      return self.frame:RegisterEvent(event)
     end,
     delegateEvent = function(self, event, ...)
-      local handler = self.handler.events[event]
+      local handler = self.frame.events[event]
       if type(self[handler]) == "function" then
         return self[handler](self, event, ...)
       end
@@ -64,8 +64,8 @@ do
   _base_0.__index = _base_0
   local _class_0 = setmetatable({
     __init = function(self)
-      self.handler = CreateFrame("Frame")
-      self.handler.events = { }
+      self.frame = CreateFrame("Frame")
+      self.frame.events = { }
       return self:bindEventLoop()
     end,
     __base = _base_0,
