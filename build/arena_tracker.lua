@@ -9,7 +9,6 @@ do
       return self.currentMatch
     end,
     left_arena = function(self)
-      print("left arena")
       self.currentMatch = nil
     end,
     score_updated = function(self)

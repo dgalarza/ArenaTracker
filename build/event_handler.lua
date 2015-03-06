@@ -55,10 +55,10 @@ do
       return self.arenaMatch:prepArenaOpponentSpecializations()
     end,
     arenaUnitNameUpdated = function(self, _, unit)
-      return self.arenaMatch.unitNameUpdated(unit)
+      return self.arenaMatch:unitNameUpdated(unit)
     end,
     score_updated = function(self)
-      return self.arenaMatch.score_updated()
+      return self.arenaMatch:score_updated()
     end
   }
   _base_0.__index = _base_0

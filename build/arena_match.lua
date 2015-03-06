@@ -4,7 +4,7 @@ do
     prepare = function(self)
       local numberOfOpponents = GetNumArenaOpponentSpecs()
       if numberOfOpponents and numberOfOpponents > 0 then
-        return self:prepareOpponentSpecializations()
+        return self:prepArenaOpponentSpecializations()
       end
     end,
     determineResults = function(self)
@@ -32,7 +32,7 @@ do
         end
       end
     end,
-    prepareOpponentSpecializations = function(self)
+    prepArenaOpponentSpecializations = function(self)
       local numberOfOpponents = GetNumArenaOpponentSpecs()
       local match = { }
       for i = 1, numberOfOpponents do

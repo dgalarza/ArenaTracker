@@ -12,7 +12,6 @@ export class ArenaTracker
     @currentMatch
 
   left_arena: =>
-    print "left arena"
     @currentMatch = nil
 
   score_updated: =>

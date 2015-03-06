@@ -46,3 +46,6 @@ describe "EventHandler", ->
       it "notifies the arenaTracker that the player has left the arena", ->
 
       it "resets the arenaMatch", ->
+
+  describe "UNIT_NAME_UPDATE", ->
+    it "alerts the arena tracker that a unit name has been updated", ->

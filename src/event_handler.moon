@@ -60,7 +60,7 @@ export class EventHandler
     @arenaMatch\prepArenaOpponentSpecializations!
 
   arenaUnitNameUpdated: (_, unit) =>
-    @arenaMatch.unitNameUpdated(unit)
+    @arenaMatch\unitNameUpdated(unit)
 
   score_updated: =>
-    @arenaMatch.score_updated!
+    @arenaMatch\score_updated!

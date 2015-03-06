@@ -1,4 +1,3 @@
-
 export class ArenaMatch
   new: =>
     @saved = false
@@ -8,7 +7,7 @@ export class ArenaMatch
   prepare: =>
     numberOfOpponents = GetNumArenaOpponentSpecs!
     if numberOfOpponents and numberOfOpponents > 0
-      @prepareOpponentSpecializations!
+      @prepArenaOpponentSpecializations!
 
   determineResults: =>
     myFaction = GetBattlefieldArenaFaction!
@@ -35,7 +34,7 @@ export class ArenaMatch
       if name
         @updateUnit(unit, "name", name)
 
-  prepareOpponentSpecializations: =>
+  prepArenaOpponentSpecializations: =>
     numberOfOpponents = GetNumArenaOpponentSpecs!
     match = {}
 
