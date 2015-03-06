@@ -1,9 +1,15 @@
 export class MockFrame
   new: =>
     @name = nil
-    @events = nil
+    @registeredEvents = {}
+    @events = {}
+    @scripts = {}
 
   RegisterEvent: (event_name) =>
-    table.insert @events, event_name
+    table.insert @registeredEvents, event_name
 
-  SetScript: (callback) ->
+  SetScript: (scriptName, callback) =>
+    @scripts[scriptName] = callback
+
+  triggerEvent: (event, ...) =>
+    @scripts["OnEvent"](@, event, ...)

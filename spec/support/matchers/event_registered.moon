@@ -4,12 +4,18 @@ assert = require "luassert.assert"
 event_registered = (state, arguments) ->
   frame = arguments[1]
   needle = arguments[2]
+  callbackName = arguments[3]
 
-  for _, event in pairs(frame.events) do
+  registeredEvent = false
+
+  for _, event in pairs(frame.registeredEvents) do
     if event == needle
-      return true
+      registeredEvent = true
 
-  return false
+  if callbackName
+    registeredEvent and (frame.events[needle] == callbackName)
+  else
+    registeredEvent
 
 say\set("assertion.is_empty.positive", "Expected %s \nto have registered event")
 say\set("assertion.is_empty.negative", "Expected %s \nnot to have registered event")
