@@ -6,14 +6,14 @@ export class EventHandler
   }
 
   new: =>
-    @handler = CreateFrame("Frame")
-    @handler.events = {}
+    @frame = CreateFrame("Frame")
+    @frame.events = {}
     @bindEventLoop!
 
   bindEventLoop: =>
     eventHandler = @
-    @handler\RegisterEvent("PLAYER_LOGIN")
-    @handler\SetScript "OnEvent", (event, ...) =>
+    @frame\RegisterEvent("PLAYER_LOGIN")
+    @frame\SetScript "OnEvent", (event, ...) =>
       if event == "PLAYER_LOGIN"
         eventHandler\initializeArenaTracker!
       else
@@ -33,14 +33,14 @@ export class EventHandler
 
   unbindArenaEvents: =>
     for event in pairs(ARENA_EVENTS) do
-      @handler\UnregisterEvent(event)
+      @frame\UnregisterEvent(event)
 
   registerEvent: (event, handler) =>
-    @handler.events[event] = handler or event
-    @handler\RegisterEvent(event)
+    @frame.events[event] = handler or event
+    @frame\RegisterEvent(event)
 
   delegateEvent: (event, ...) =>
-    handler = @handler.events[event]
+    handler = @frame.events[event]
     if type(@[handler]) == "function"
       @[handler](@, event, ...)
 
