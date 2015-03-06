@@ -11,3 +11,9 @@ export strfind = (haystack, needle) ->
 
 export stubOpponentSpec = (specId) ->
   stub(_G, "GetArenaOpponentSpec", specId)
+
+export CreateFrame = (name) ->
+  frame = MockFrame!
+  frame.name = name
+
+  frame
