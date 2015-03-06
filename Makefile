@@ -1,5 +1,5 @@
 clean:
-	rm build/*
+	rm -f build/*
 
 compile: clean
 	moonc src/
