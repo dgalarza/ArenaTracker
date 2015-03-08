@@ -17,7 +17,7 @@ event_registered = (state, arguments) ->
   else
     registeredEvent
 
-say\set("assertion.is_empty.positive", "Expected %s \nto have registered event")
-say\set("assertion.is_empty.negative", "Expected %s \nnot to have registered event")
+say\set("assertion.event_registered.positive", "Expected %s \nto have registered event: %s")
+say\set("assertion.event_registered.negative", "Expected %s \nnot to have registered event: %s")
 
 assert\register("assertion", "event_registered", event_registered, "assertion.event_registered.positive", "assertion.event_registered.negative")
