@@ -4,7 +4,7 @@ export stubNumberOfArenaOpponents = (number) ->
   stub(_G, "GetNumArenaOpponentSpecs", number)
 
 export stubUnitName = (name) ->
-  stub(_G, "UnitName", "Doctype")
+  stub(_G, "UnitName", name)
 
 export strfind = (haystack, needle) ->
   string.find(haystack, needle)
