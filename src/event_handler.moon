@@ -2,7 +2,7 @@ export class EventHandler
   ARENA_EVENTS = {
     "ARENA_PREP_OPPONENT_SPECIALIZATIONS": "prepArenaOpponentSpecializations",
     "UNIT_NAME_UPDATE": "arenaUnitNameUpdated",
-    "UPDATE_BATTLEFIELD_SCORE", "score_udpated"
+    "UPDATE_BATTLEFIELD_SCORE": "score_updated"
   }
 
   new: =>
@@ -63,4 +63,4 @@ export class EventHandler
     @arenaMatch\unitNameUpdated(unit)
 
   score_updated: =>
-    @arenaMatch\score_updated!
+    @arenaTracker\score_updated!
