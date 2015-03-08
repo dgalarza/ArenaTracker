@@ -15,12 +15,12 @@ export class ArenaTracker
     @currentMatch = nil
 
   score_updated: =>
-    winner = @currentMatch\get_winner!
+    winner = @currentMatch\getWinner!
     if winner and not @currentMatch.saved
       @track_match!
 
   track_match: =>
     @currentMatch.saved = true
-    @currentMatch\determine_result!
+    @currentMatch\determineResults!
 
     table.insert ArenaMatches, @currentMatch\toTable!

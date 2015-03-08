@@ -24,7 +24,7 @@ export class ArenaMatch
 
     results
 
-  getWinner: ->
+  getWinner: =>
     GetBattlefieldWinner!
 
   unitNameUpdated: (unit) =>

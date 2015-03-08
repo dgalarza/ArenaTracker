@@ -57,9 +57,9 @@ describe "ArenaTracker", ->
       context "winner determined and match not saved", ->
         it "saves the match", ->
           mockArenaMatch = {
-            get_winner: -> "winner",
+            getWinner: -> "winner",
             saved: false,
-            determine_result: -> true
+            determineResults: -> true
             toTable: -> {}
           }
           tracker = ArenaTracker!
@@ -72,8 +72,8 @@ describe "ArenaTracker", ->
 
         it "determines the result of the current match", ->
           mockArenaMatch = mock({
-            get_winner: -> "winner",
-            determine_result: -> true,
+            getWinner: -> "winner",
+            determineResults: -> true,
             toTable: -> {},
             saved: false
           })
@@ -83,13 +83,13 @@ describe "ArenaTracker", ->
             .currentMatch = mockArenaMatch
             \score_updated!
 
-          assert.spy(mockArenaMatch.determine_result).was_called!
+          assert.spy(mockArenaMatch.determineResults).was_called!
 
         it "stores the current match in the matches table" ,->
           mockArenaMatchTable = { foo: "bar" }
           mockArenaMatch = {
-            get_winner: -> "winner",
-            determine_result: -> true,
+            getWinner: -> "winner",
+            determineResults: -> true,
             toTable: -> mockArenaMatchTable,
             saved: false
           }
@@ -104,7 +104,7 @@ describe "ArenaTracker", ->
       context "current match already saved", ->
         it "does not add the current match into the matches table again", ->
           mockArenaMatch = buildMockArenaMatch({
-            get_winner: -> "winner",
+            getWinner: -> "winner",
             saved: true
           })
           tracker = ArenaTracker!
@@ -113,13 +113,13 @@ describe "ArenaTracker", ->
             .currentMatch = mockArenaMatch
             \score_updated!
 
-          assert.spy(mockArenaMatch.determine_result).was_not_called!
+          assert.spy(mockArenaMatch.determineResults).was_not_called!
           assert.equal(nil, ArenaMatches[1])
 
       context "winner is not available yet", ->
         it "does not add the current match to the matches table again", ->
           mockArenaMatch = buildMockArenaMatch({
-            get_winner: -> nil,
+            getWinner: -> nil,
             saved: false
           })
           tracker = ArenaTracker!
@@ -128,13 +128,13 @@ describe "ArenaTracker", ->
             .currentMatch = mockArenaMatch
             \score_updated!
 
-          assert.spy(mockArenaMatch.determine_result).was_not_called!
+          assert.spy(mockArenaMatch.determineResults).was_not_called!
           assert.equal(nil, ArenaMatches[1])
 
   export buildMockArenaMatch = (attributes = {}) ->
     defaults = {
-      get_winner: -> nil
-      determine_result: -> true
+      getWinner: -> nil
+      determineResults: -> true
       saved: false,
       toTable: -> {}
     }
