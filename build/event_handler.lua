@@ -58,7 +58,7 @@ do
       return self.arenaMatch:unitNameUpdated(unit)
     end,
     score_updated = function(self)
-      return self.arenaMatch:score_updated()
+      return self.arenaTracker:score_updated()
     end
   }
   _base_0.__index = _base_0
@@ -83,8 +83,7 @@ do
   ARENA_EVENTS = {
     ["ARENA_PREP_OPPONENT_SPECIALIZATIONS"] = "prepArenaOpponentSpecializations",
     ["UNIT_NAME_UPDATE"] = "arenaUnitNameUpdated",
-    "UPDATE_BATTLEFIELD_SCORE",
-    "score_udpated"
+    ["UPDATE_BATTLEFIELD_SCORE"] = "score_updated"
   }
   EventHandler = _class_0
 end

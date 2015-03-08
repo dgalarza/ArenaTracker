@@ -21,7 +21,7 @@ do
       end
       return results
     end,
-    getWinner = function()
+    getWinner = function(self)
       return GetBattlefieldWinner()
     end,
     unitNameUpdated = function(self, unit)

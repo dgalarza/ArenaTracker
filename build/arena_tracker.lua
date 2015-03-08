@@ -12,14 +12,14 @@ do
       self.currentMatch = nil
     end,
     score_updated = function(self)
-      local winner = self.currentMatch:get_winner()
+      local winner = self.currentMatch:getWinner()
       if winner and not self.currentMatch.saved then
         return self:track_match()
       end
     end,
     track_match = function(self)
       self.currentMatch.saved = true
-      self.currentMatch:determine_result()
+      self.currentMatch:determineResults()
       return table.insert(ArenaMatches, self.currentMatch:toTable())
     end
   }
