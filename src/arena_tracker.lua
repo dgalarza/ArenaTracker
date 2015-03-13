@@ -1,3 +1,4 @@
+ArenaMatches = {}
 ArenaTracker = {}
 
 function ArenaTracker:Init()
