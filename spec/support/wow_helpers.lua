@@ -18,3 +18,11 @@ function CreateFrame(name)
 
   return frame
 end
+
+function IsArenaSkirmish()
+  return true
+end
+
+function UnitName(name)
+  return "Doctype"
+end

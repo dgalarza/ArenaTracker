@@ -75,15 +75,34 @@ describe "EventHandler", ->
 
         assert.equal(eventHandler.arenaMatch, nil)
 
-  -- describe "UNIT_NAME_UPDATE", ->
-  --   it "alerts the arena tracker that a unit name has been updated", ->
-  --     eventHandler = joinArena!
-  --     stubbed = spy.on(eventHandler.arenaMatch, "unitNameUpdated")
-  --     stubUnitName("Doctype")
-  --     unit = "arena1"
-  --     eventHandler.frame\triggerEvent("UNIT_NAME_UPDATE", unit)
+  describe "ARENA_OPPONENT_UPDATE", ->
+    describe "type is seen", ->
+      it "updates the unit's name", ->
+        eventHandler = joinArena!
+        arenaMatchSpy = spy.on(eventHandler.arenaMatch, "unitNameUpdated")
 
-  --     assert.spy(stubbed).was.called_with(unit)
+        eventHandler.frame\triggerEvent("ARENA_OPPONENT_UPDATE", "arena1", "seen")
+
+        assert.spy(arenaMatchSpy).was.called!
+
+    describe "type is destroyed", ->
+      it "updates the unit's name", ->
+        eventHandler = joinArena!
+        arenaMatchSpy = spy.on(eventHandler.arenaMatch, "unitNameUpdated")
+
+        eventHandler.frame\triggerEvent("ARENA_OPPONENT_UPDATE", "arena1", "destroyed")
+
+        assert.spy(arenaMatchSpy).was.called!
+
+  describe "UNIT_NAME_UPDATE", ->
+    it "alerts the arena tracker that a unit name has been updated", ->
+      eventHandler = joinArena!
+      stubbed = spy.on(eventHandler.arenaMatch, "unitNameUpdated")
+      stubUnitName("Doctype")
+      unit = "arena1"
+      eventHandler.frame\triggerEvent("UNIT_NAME_UPDATE", unit)
+
+      assert.spy(stubbed).was.called!
 
   export joinArena = (eventHandler) ->
     if not eventHandler

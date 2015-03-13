@@ -3,6 +3,7 @@ EventHandler = {}
 EventHandler.ARENA_EVENTS = {
   ["ARENA_PREP_OPPONENT_SPECIALIZATIONS"] = "prepArenaOpponentSpecializations",
   ["UNIT_NAME_UPDATE"] = "arenaUnitNameUpdated",
+  ["ARENA_OPPONENT_UPDATE"] = "arenaOpponentUpdate",
   ["UPDATE_BATTLEFIELD_SCORE"] = "score_updated"
 }
 
@@ -75,4 +76,10 @@ end
 
 function EventHandler:score_updated()
   self.arenaTracker:score_updated()
+end
+
+function EventHandler:arenaOpponentUpdate(_, unit, type)
+  if type == "seen" or type == "destroyed" then
+    self.arenaMatch:unitNameUpdated(unit)
+  end
 end

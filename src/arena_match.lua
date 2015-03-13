@@ -22,7 +22,7 @@ function ArenaMatchPrototype:unitNameUpdated(unit)
   if isValidUnit(unit) then
     local name = WowApi.GetUnitName(unit)
 
-    if name then
+    if name and name ~= "Unknown" then
       self:updateUnit(unit, "name", name)
     end
   end
