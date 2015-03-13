@@ -5,7 +5,7 @@ do
       if not self.currentMatch then
         self.currentMatch = ArenaMatch()
       end
-      self.currentMatch.prepare()
+      self.currentMatch:prepare()
       return self.currentMatch
     end,
     left_arena = function(self)

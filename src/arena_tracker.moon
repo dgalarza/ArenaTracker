@@ -8,7 +8,7 @@ export class ArenaTracker
     if not @currentMatch
       @currentMatch = ArenaMatch!
 
-    @currentMatch.prepare!
+    @currentMatch\prepare!
     @currentMatch
 
   left_arena: =>
