@@ -10,6 +10,7 @@ end
 
 function ArenaMatchPrototype:determineResults()
   local myFaction = WowApi.GetPlayerArenaFaction()
+  self.ranked = WowApi.IsRankedArenaMatch()
   self.won = self:getWinner() == myFaction
 end
 

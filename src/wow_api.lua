@@ -28,3 +28,7 @@ function WowApi.IsInArena()
   local _, instanceType = IsInInstance()
   return instanceType == "arena"
 end
+
+function WowApi.IsRankedArenaMatch()
+  return not IsArenaSkirmish()
+end

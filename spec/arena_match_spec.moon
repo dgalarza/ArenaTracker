@@ -24,6 +24,17 @@ describe "ArenaMatch", ->
 
         assert.True(match.won)
 
+      it "flags whether or not the match is ranked", ->
+        stub(WowApi, "IsRankedArenaMatch", true)
+        rankedMatch = ArenaMatch!
+        rankedMatch\determineResults!
+        assert.True(rankedMatch.ranked)
+
+        stub(WowApi, "IsRankedArenaMatch", false)
+        skirmishMatch = ArenaMatch!
+        skirmishMatch\determineResults!
+        assert.False(skirmishMatch.ranked)
+
     context "my faction is different from the winning faction", ->
       it "marks the match as lost", ->
         stub(_G, "GetBattlefieldArenaFaction", "Alliance")
