@@ -26,7 +26,8 @@ function EventHandler:bindEventLoop()
 end
 
 function EventHandler:initializeArenaTracker()
-  self.arenaTracker = ArenaTracker()
+  ArenaTracker:Init()
+  self.arenaTracker = ArenaTracker
   self:bindZoneEvents()
 end
 

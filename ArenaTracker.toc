@@ -7,5 +7,5 @@
 src/event_handler.lua
 src/arena_match.lua
 src/arena_player.lua
-build/arena_tracker.lua
+src/arena_tracker.lua
 Init.lua

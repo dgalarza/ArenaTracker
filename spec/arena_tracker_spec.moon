@@ -9,26 +9,24 @@ describe "ArenaTracker", ->
   it "prints a welcome message", ->
     print_spy = spy.on(_G, "print")
 
-    ArenaTracker!
+    ArenaTracker.Init()
 
     assert.spy(print_spy).was_called_with("Welcome to ArenaTracker")
 
   describe "#joined_arena", ->
     it "creates an arena match", ->
       stub(_G, "GetNumArenaOpponentSpecs")
-      tracker = ArenaTracker!
 
-      tracker\joined_arena!
+      ArenaTracker\joined_arena!
 
-      assert.not.equals(tracker.currentMatch, nil)
+      assert.not.equals(ArenaTracker.currentMatch, nil)
 
     it "does not overwrite the match if called multiple times", ->
       stub(_G, "GetNumArenaOpponentSpecs")
-      tracker = ArenaTracker!
 
-      currentMatch = tracker\joined_arena!
+      currentMatch = ArenaTracker\joined_arena!
 
-      assert.equal(currentMatch, tracker\joined_arena!)
+      assert.equal(currentMatch, ArenaTracker\joined_arena!)
 
     it "prepares the currentMatch", ->
       mockArenaMatch = {
@@ -36,22 +34,19 @@ describe "ArenaTracker", ->
       }
       mockArenaMatch = mock(mockArenaMatch)
 
-      with ArenaTracker!
-        .currentMatch = mockArenaMatch
-        \joined_arena!
+      ArenaTracker.currentMatch = mockArenaMatch
+      ArenaTracker.joined_arena!
 
       assert.spy(mockArenaMatch.prepare).was_called!
 
     describe "#left_arena", ->
       it "resets the currentMatch", ->
         mockArenaMatch = {}
-        tracker = ArenaTracker!
+        ArenaTracker.currentMatch = mockArenaMatch
 
-        with tracker
-          .currentMatch = mockArenaMatch
-          \left_arena!
+        ArenaTracker\left_arena()
 
-        assert.equal(nil, tracker.currentMatch)
+        assert.equal(nil, ArenaTracker.currentMatch)
 
     describe "#score_updated", ->
       context "winner determined and match not saved", ->
@@ -62,13 +57,13 @@ describe "ArenaTracker", ->
             determineResults: -> true
             toTable: -> {}
           }
-          tracker = ArenaTracker!
+          ArenaTracker.Init()
 
-          with tracker
+          with ArenaTracker
             .currentMatch = mockArenaMatch
             \score_updated!
 
-          assert.True(tracker.currentMatch.saved)
+          assert.True(ArenaTracker.currentMatch.saved)
 
         it "determines the result of the current match", ->
           mockArenaMatch = mock({
@@ -77,9 +72,9 @@ describe "ArenaTracker", ->
             toTable: -> {},
             saved: false
           })
-          tracker = ArenaTracker!
+          tracker = ArenaTracker.Init()
 
-          with tracker
+          with ArenaTracker
             .currentMatch = mockArenaMatch
             \score_updated!
 
@@ -93,9 +88,9 @@ describe "ArenaTracker", ->
             toTable: -> mockArenaMatchTable,
             saved: false
           }
-          tracker = ArenaTracker!
+          tracker = ArenaTracker.Init()
 
-          with tracker
+          with ArenaTracker
             .currentMatch = mockArenaMatch
             \score_updated!
 
@@ -107,9 +102,9 @@ describe "ArenaTracker", ->
             getWinner: -> "winner",
             saved: true
           })
-          tracker = ArenaTracker!
+          tracker = ArenaTracker.Init()
 
-          with tracker
+          with ArenaTracker
             .currentMatch = mockArenaMatch
             \score_updated!
 
@@ -122,9 +117,9 @@ describe "ArenaTracker", ->
             getWinner: -> nil,
             saved: false
           })
-          tracker = ArenaTracker!
+          tracker = ArenaTracker.Init()
 
-          with tracker
+          with ArenaTracker
             .currentMatch = mockArenaMatch
             \score_updated!
 
