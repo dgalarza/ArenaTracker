@@ -9,21 +9,21 @@ describe "EventHandler", ->
     it "creates a frame for handling events", ->
       frameSpy = spy.on(_G, "CreateFrame")
 
-      eventHandler = EventHandler!
+      eventHandler = EventHandler.init!
       eventsTable = eventHandler.frame.events
 
       assert.spy(frameSpy).was.called!
       assert.equal(type(eventsTable), "table")
 
     it "registers an event for PLAYER_LOGIN", ->
-      eventHandler = EventHandler!
+      eventHandler = EventHandler.init!
       frame = eventHandler.frame
 
       assert.event_registered(frame, "PLAYER_LOGIN")
 
   context "PLAYER_LOGIN", ->
     it "initializes the ArenaTracker addon", ->
-      eventHandler = EventHandler!
+      eventHandler = EventHandler.init!
       frame = eventHandler.frame
 
       frame\triggerEvent("PLAYER_LOGIN")
@@ -31,7 +31,7 @@ describe "EventHandler", ->
       assert.not.equal(eventHandler.arenaTracker, nil)
 
     it "binds events to track zone changes", ->
-      eventHandler = EventHandler!
+      eventHandler = EventHandler.init!
       frame = eventHandler.frame
       frame\triggerEvent("PLAYER_LOGIN")
 
@@ -95,7 +95,7 @@ describe "EventHandler", ->
     eventHandler
 
   export startEventHandler = ->
-    eventHandler = EventHandler!
+    eventHandler = EventHandler.init!
     eventHandler.frame\triggerEvent("PLAYER_LOGIN")
     eventHandler
 

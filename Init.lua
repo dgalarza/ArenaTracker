@@ -1,1 +1,1 @@
-EventHandler()
+EventHandler.init()
