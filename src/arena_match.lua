@@ -66,7 +66,7 @@ function ArenaMatchPrototype:buildUnit(unit)
 end
 
 function isValidUnit(unit)
-  return strfind(unit, "arena") and not strfind(unit, "pet")
+  return string.find(unit, "arena") and not string.find(unit, "pet")
 end
 
 ArenaMatchPrototype.__index = ArenaMatchPrototype
