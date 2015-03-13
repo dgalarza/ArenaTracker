@@ -79,7 +79,7 @@ describe "EventHandler", ->
     describe "type is seen", ->
       it "updates the unit's name", ->
         eventHandler = joinArena!
-        arenaMatchSpy = spy.on(eventHandler.arenaMatch, "unitNameUpdated")
+        arenaMatchSpy = spy.on(eventHandler.arenaMatch, "opponentNameUpdated")
 
         eventHandler.frame\triggerEvent("ARENA_OPPONENT_UPDATE", "arena1", "seen")
 
@@ -88,21 +88,47 @@ describe "EventHandler", ->
     describe "type is destroyed", ->
       it "updates the unit's name", ->
         eventHandler = joinArena!
-        arenaMatchSpy = spy.on(eventHandler.arenaMatch, "unitNameUpdated")
+        arenaMatchSpy = spy.on(eventHandler.arenaMatch, "opponentNameUpdated")
 
         eventHandler.frame\triggerEvent("ARENA_OPPONENT_UPDATE", "arena1", "destroyed")
 
         assert.spy(arenaMatchSpy).was.called!
 
   describe "UNIT_NAME_UPDATE", ->
-    it "alerts the arena tracker that a unit name has been updated", ->
-      eventHandler = joinArena!
-      stubbed = spy.on(eventHandler.arenaMatch, "unitNameUpdated")
-      stubUnitName("Doctype")
-      unit = "arena1"
-      eventHandler.frame\triggerEvent("UNIT_NAME_UPDATE", unit)
+    describe "arena unit is updated", ->
+      it "alerts the arena tracker that an opponent unit name has been updated", ->
+        eventHandler = joinArena!
+        stubbed = spy.on(eventHandler.arenaMatch, "opponentNameUpdated")
+        unit = "arena1"
+        eventHandler.frame\triggerEvent("UNIT_NAME_UPDATE", unit)
 
-      assert.spy(stubbed).was.called!
+        assert.spy(stubbed).was.called!
+
+    describe "arena pet is updated", ->
+      it "does not alert that a unit name was updated", ->
+        eventHandler = joinArena!
+        stubbed = spy.on(eventHandler.arenaMatch, "opponentNameUpdated")
+        unit = "arenapet"
+        eventHandler.frame\triggerEvent("UNIT_NAME_UPDATE", unit)
+
+        assert.spy(stubbed).was_not_called!
+
+    describe "a party unit was updated", ->
+      it "does not alert that an opponent name was updated", ->
+        eventHandler = joinArena!
+        stubbed = spy.on(eventHandler.arenaMatch, "opponentNameUpdated")
+        unit = "party1"
+        eventHandler.frame\triggerEvent("UNIT_NAME_UPDATE", unit)
+
+        assert.spy(stubbed).was_not_called!
+
+      it "alerts that a party member was updated", ->
+        eventHandler = joinArena!
+        stubbed = spy.on(eventHandler.arenaMatch, "partyNameUpdated")
+        unit = "party1"
+        eventHandler.frame\triggerEvent("UNIT_NAME_UPDATE", unit)
+
+        assert.spy(stubbed).was_called!
 
   export joinArena = (eventHandler) ->
     if not eventHandler

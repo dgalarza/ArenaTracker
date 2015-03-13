@@ -45,32 +45,16 @@ describe "ArenaMatch", ->
 
         assert.False(match.won)
 
-  describe "#unitNameUpdated", ->
-    context "Unit is a pet", ->
-      it "does not update the given unit", ->
-        match = ArenaMatch!
-
-        match\unitNameUpdated("arenapet1")
-
-        assert.equal(match.players["arenapet1"], nil)
-
-    context "Unit is not an arena unit", ->
-      it "does not update the given unit", ->
-        match = ArenaMatch!
-
-        match\unitNameUpdated("some_unit")
-
-        assert.equal(match.players["some_unit"], nil)
-
+  describe "#opponentNameUpdated", ->
     context "Unit is valid arena unit" ,->
       it "stores the unit's name", ->
         unitNameSpy = stubUnitName("Doctype")
         match = ArenaMatch!
 
-        match\unitNameUpdated("arena1")
+        match\opponentNameUpdated("arena1")
 
         assert.spy(unitNameSpy).was.called_with("arena1")
-        assert.equal(match.players["arena1"].name, "Doctype")
+        assert.equal("Doctype", match.opponents["arena1"].name)
 
   describe "#prepare", ->
     context "number of opponents is nil", ->
@@ -80,7 +64,7 @@ describe "ArenaMatch", ->
 
         match\prepare!
 
-        assert.is_empty(match.players)
+        assert.is_empty(match.opponents)
 
     context "number of opponents is 0", ->
       it "does not create track any players", ->
@@ -89,7 +73,7 @@ describe "ArenaMatch", ->
 
         match\prepare!
 
-        assert.is_empty(match.players)
+        assert.is_empty(match.opponents)
 
     context "number of opponents is greater than 0", ->
       context "Spec is available for player", ->
@@ -100,7 +84,7 @@ describe "ArenaMatch", ->
           match = ArenaMatch!
 
           match\prepare!
-          arena1 = match.players["arena1"]
+          arena1 = match.opponents["arena1"]
 
           assert.stub(opponentSpecStub).was.called_with(1)
           assert.equal(arena1.spec, frostSpecId)
@@ -114,4 +98,4 @@ describe "ArenaMatch", ->
           match\prepare!
 
           assert.stub(opponentSpecStub).was.called_with(1)
-          assert.is_empty(match.players)
+          assert.is_empty(match.opponents)

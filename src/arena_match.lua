@@ -18,13 +18,19 @@ function ArenaMatchPrototype:getWinner()
   return WowApi.GetBattlefieldWinner()
 end
 
-function ArenaMatchPrototype:unitNameUpdated(unit)
-  if isValidUnit(unit) then
-    local name = WowApi.GetUnitName(unit)
+function ArenaMatchPrototype:opponentNameUpdated(unit)
+  local name = WowApi.GetUnitName(unit)
 
-    if name and name ~= "Unknown" then
-      self:updateUnit(unit, "name", name)
-    end
+  if name and name ~= "Unknown" then
+    self:updateUnit(unit, "name", name, "opponents")
+  end
+end
+
+function ArenaMatchPrototype:partyNameUpdated(unit)
+  local name = WowApi.GetUnitName(unit)
+
+  if name and name ~= "Unknown" then
+    self:updateUnit(unit, "name", name, "party")
   end
 end
 
@@ -37,24 +43,24 @@ function ArenaMatchPrototype:prepArenaOpponentSpecializations()
     local specId = WowApi.GetArenaOpponentSpec(i)
 
     if specId > 0 then
-      self:updateUnit(unit, "spec", specId)
+      self:updateUnit(unit, "spec", specId, "opponents")
     end
   end
 end
 
-function ArenaMatchPrototype:updateUnit(unit, attribute, value)
-  self:buildUnit(unit)
-  self.players[unit][attribute] = value
+function ArenaMatchPrototype:updateUnit(unit, attribute, value, collection)
+  local unitsTable = self[collection]
+
+  self:buildUnit(unit, collection)
+  unitsTable[unit][attribute] = value
 end
 
-function ArenaMatchPrototype:buildUnit(unit)
-  if self.players[unit] == nil then
-    self.players[unit] = ArenaPlayer()
+function ArenaMatchPrototype:buildUnit(unit, collection)
+  local unitsTable = self[collection]
+
+  if unitsTable[unit] == nil then
+    unitsTable[unit] = ArenaPlayer()
   end
-end
-
-function isValidUnit(unit)
-  return string.find(unit, "arena") and not string.find(unit, "pet")
 end
 
 ArenaMatchPrototype.__index = ArenaMatchPrototype
@@ -63,7 +69,8 @@ ArenaMatch = setmetatable({
   __init = function(self)
     self.saved = false
     self.won = false
-    self.players = {}
+    self.opponents = {}
+    self.party = {}
   end,
 
   __base = ArenaMatchPrototype,

@@ -71,7 +71,11 @@ function EventHandler:prepArenaOpponentSpecializations()
 end
 
 function EventHandler:arenaUnitNameUpdated(_, unit)
-  self.arenaMatch:unitNameUpdated(unit)
+  if isArenaUnit(unit) then
+    self.arenaMatch:opponentNameUpdated(unit)
+  elseif isPartyUnit(unit) then
+    self.arenaMatch:partyNameUpdated(unit)
+  end
 end
 
 function EventHandler:score_updated()
@@ -80,6 +84,14 @@ end
 
 function EventHandler:arenaOpponentUpdate(_, unit, type)
   if type == "seen" or type == "destroyed" then
-    self.arenaMatch:unitNameUpdated(unit)
+    self.arenaMatch:opponentNameUpdated(unit)
   end
+end
+
+function isArenaUnit(unit)
+  return string.find(unit, "arena") and not string.find(unit, "pet")
+end
+
+function isPartyUnit(unit)
+  return string.find(unit, "party") and not string.find(unit, "pet")
 end
