@@ -56,7 +56,6 @@ describe "ArenaTracker", ->
             getWinner: -> "winner",
             saved: false,
             determineResults: -> true
-            toTable: -> {}
           }
           ArenaTracker.Init()
 
@@ -70,7 +69,6 @@ describe "ArenaTracker", ->
           mockArenaMatch = mock({
             getWinner: -> "winner",
             determineResults: -> true,
-            toTable: -> {},
             saved: false
           })
           tracker = ArenaTracker.Init()
@@ -82,11 +80,9 @@ describe "ArenaTracker", ->
           assert.spy(mockArenaMatch.determineResults).was_called!
 
         it "stores the current match in the matches table" ,->
-          mockArenaMatchTable = { foo: "bar" }
           mockArenaMatch = {
             getWinner: -> "winner",
             determineResults: -> true,
-            toTable: -> mockArenaMatchTable,
             saved: false
           }
           tracker = ArenaTracker.Init()
@@ -95,7 +91,7 @@ describe "ArenaTracker", ->
             .currentMatch = mockArenaMatch
             \score_updated!
 
-          assert.equal(mockArenaMatchTable, ArenaMatches[1])
+          assert.equal(mockArenaMatch, ArenaMatches[1])
 
       context "current match already saved", ->
         it "does not add the current match into the matches table again", ->
@@ -132,7 +128,6 @@ describe "ArenaTracker", ->
       getWinner: -> nil
       determineResults: -> true
       saved: false,
-      toTable: -> {}
     }
 
     for key, value in pairs(attributes)

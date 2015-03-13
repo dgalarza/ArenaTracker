@@ -14,19 +14,6 @@ function ArenaMatchPrototype:determineResults()
   self.won = self:getWinner() == myFaction
 end
 
-function ArenaMatchPrototype:toTable()
-  local results = {
-    ["won"] = self.won,
-    ["players"] = {}
-  }
-
-  for _, unit in pairs(self.players) do
-    table.insert(results["players"], unit)
-  end
-
-  return results
-end
-
 function ArenaMatchPrototype:getWinner()
   return WowApi.GetBattlefieldWinner()
 end

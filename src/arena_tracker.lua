@@ -34,5 +34,5 @@ function ArenaTracker:track_match()
   ArenaTracker.currentMatch.saved = true
   ArenaTracker.currentMatch:determineResults()
 
-  table.insert(ArenaMatches, ArenaTracker.currentMatch:toTable())
+  table.insert(ArenaMatches, ArenaTracker.currentMatch)
 end
