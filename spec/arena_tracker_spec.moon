@@ -1,3 +1,4 @@
+require "spec/spec_helper"
 require "src/event_handler"
 require "src/arena_tracker"
 require "src/arena_match"

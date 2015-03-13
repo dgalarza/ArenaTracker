@@ -1,3 +1,5 @@
+require "src/wow_api"
+
 require "spec/support/matchers/is_empty"
 require "spec/support/matchers/event_registered"
 

@@ -7,7 +7,7 @@ EventHandler.ARENA_EVENTS = {
 }
 
 function EventHandler:init()
-  EventHandler.frame = CreateFrame("Frame")
+  EventHandler.frame = WowApi.CreateFrame("Frame")
   EventHandler.frame.events = {}
   EventHandler:bindEventLoop()
 
@@ -48,24 +48,21 @@ function EventHandler:registerEvent(event, handler)
 end
 
 function EventHandler:delegateEvent(event, ...)
-  handler = self.frame.events[event]
+  local handler = self.frame.events[event]
   if type(self[handler]) == "function" then
     self[handler](self, event, ...)
   end
 end
 
 function EventHandler:zoneChange()
-  _, instanceType = IsInInstance()
-
-  if instanceType == "arena" then
+  if WowApi.IsInArena() then
     self:bindArenaEvents()
     self.arenaMatch = self.arenaTracker:joined_arena()
-  elseif self.previousInstanceType == "arena" then
+    self.inArena = true
+  elseif self.inArena then
     self.arenaTracker:left_arena()
     self.arenaMatch = nil
   end
-
-  self.previousInstanceType = instanceType
 end
 
 function EventHandler:prepArenaOpponentSpecializations()

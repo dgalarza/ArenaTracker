@@ -7,7 +7,7 @@ require "src/arena_tracker"
 describe "EventHandler", ->
   describe "#new", ->
     it "creates a frame for handling events", ->
-      frameSpy = spy.on(_G, "CreateFrame")
+      frameSpy = spy.on(WowApi, "CreateFrame")
 
       eventHandler = EventHandler.init!
       eventsTable = eventHandler.frame.events
@@ -59,7 +59,7 @@ describe "EventHandler", ->
       it "caches the current instance type", ->
         eventHandler = joinArena!
 
-        assert.equal(eventHandler.previousInstanceType, "arena")
+        assert.True(eventHandler.inArena)
 
     context "leaving arena", ->
       it "notifies the arenaTracker that the player has left the arena", ->
@@ -75,22 +75,23 @@ describe "EventHandler", ->
 
         assert.equal(eventHandler.arenaMatch, nil)
 
-  describe "UNIT_NAME_UPDATE", ->
-    it "alerts the arena tracker that a unit name has been updated", ->
-      eventHandler = joinArena!
-      stubbed = spy.on(eventHandler.arenaMatch, "unitNameUpdated")
-      stubUnitName("Doctype")
-      unit = "arena1"
-      eventHandler.frame\triggerEvent("UNIT_NAME_UPDATE", unit)
+  -- describe "UNIT_NAME_UPDATE", ->
+  --   it "alerts the arena tracker that a unit name has been updated", ->
+  --     eventHandler = joinArena!
+  --     stubbed = spy.on(eventHandler.arenaMatch, "unitNameUpdated")
+  --     stubUnitName("Doctype")
+  --     unit = "arena1"
+  --     eventHandler.frame\triggerEvent("UNIT_NAME_UPDATE", unit)
 
-      assert.spy(stubbed).was.called_with(unit)
+  --     assert.spy(stubbed).was.called_with(unit)
 
   export joinArena = (eventHandler) ->
     if not eventHandler
       eventHandler = startEventHandler!
 
     stubNumberOfArenaOpponents(0)
-    stubIsInInstance(true, "arena")
+    stub(WowApi, "IsInArena", true)
+
     eventHandler.frame\triggerEvent("ZONE_CHANGED_NEW_AREA")
     eventHandler
 
@@ -100,5 +101,5 @@ describe "EventHandler", ->
     eventHandler
 
   export leaveArena = (eventHandler) ->
-    stubIsInInstance(false, "none")
+    stub(WowApi, "IsInArena", false)
     eventHandler.frame\triggerEvent("ZONE_CHANGED_NEW_AREA")

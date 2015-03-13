@@ -4,6 +4,7 @@
 ## Notes: Track detailed statistics about your arena matches
 ## SavedVariablesPerCharacter: ArenaMatches
 
+src/wow_api.lua
 src/event_handler.lua
 src/arena_match.lua
 src/arena_player.lua

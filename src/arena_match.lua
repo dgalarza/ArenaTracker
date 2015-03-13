@@ -1,7 +1,7 @@
 local ArenaMatchPrototype = {}
 
 function ArenaMatchPrototype:prepare()
-  local numberOfOpponents = GetNumArenaOpponentSpecs()
+  local numberOfOpponents = WowApi.GetNumberOfArenaOpponents()
 
   if numberOfOpponents and numberOfOpponents > 0 then
     self:prepArenaOpponentSpecializations()
@@ -9,7 +9,7 @@ function ArenaMatchPrototype:prepare()
 end
 
 function ArenaMatchPrototype:determineResults()
-  local myFaction = GetBattlefieldArenaFaction()
+  local myFaction = WowApi.GetPlayerArenaFaction()
   self.won = self:getWinner() == myFaction
 end
 
@@ -27,12 +27,12 @@ function ArenaMatchPrototype:toTable()
 end
 
 function ArenaMatchPrototype:getWinner()
-  return GetBattlefieldWinner()
+  return WowApi.GetBattlefieldWinner()
 end
 
 function ArenaMatchPrototype:unitNameUpdated(unit)
   if isValidUnit(unit) then
-    local name = UnitName(unit)
+    local name = WowApi.GetUnitName(unit)
 
     if name then
       self:updateUnit(unit, "name", name)
@@ -41,12 +41,12 @@ function ArenaMatchPrototype:unitNameUpdated(unit)
 end
 
 function ArenaMatchPrototype:prepArenaOpponentSpecializations()
-  local numberOfOpponents = GetNumArenaOpponentSpecs()
+  local numberOfOpponents = WowApi.GetNumberOfArenaOpponents()
   local match = {}
 
   for i = 1, numberOfOpponents do
     local unit = "arena"..i
-    local specId = GetArenaOpponentSpec(i)
+    local specId = WowApi.GetArenaOpponentSpec(i)
 
     if specId > 0 then
       self:updateUnit(unit, "spec", specId)

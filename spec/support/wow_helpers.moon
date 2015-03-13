@@ -1,19 +1,16 @@
 stub = require "luassert.stub"
 
 export stubNumberOfArenaOpponents = (number) ->
-  stub(_G, "GetNumArenaOpponentSpecs", number)
+  stub(WowApi, "GetNumberOfArenaOpponents", number)
 
 export stubUnitName = (name) ->
-  stub(_G, "UnitName", name)
+  stub(WowApi, "GetUnitName", name)
 
 export strfind = (haystack, needle) ->
   string.find(haystack, needle)
 
 export stubOpponentSpec = (specId) ->
-  stub(_G, "GetArenaOpponentSpec", specId)
-
-export stubIsInInstance = (isInstance, instanceType) ->
-  stub(_G, "IsInInstance", isInstance, instanceType)
+  stub(WowApi, "GetArenaOpponentSpec", specId)
 
 export CreateFrame = (name) ->
   frame = MockFrame!
