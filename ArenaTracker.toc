@@ -10,4 +10,6 @@ src/event_handler.lua
 src/arena_match.lua
 src/arena_player.lua
 src/arena_tracker.lua
+src/arena_tracker_ui.lua
 Init.lua
+ArenaTracker.xml

@@ -83,7 +83,7 @@ function EventHandler:score_updated()
 end
 
 function EventHandler:arenaOpponentUpdate(_, unit, type)
-  if type == "seen" or type == "destroyed"then
+  if type == "seen" or type == "destroyed" then
     if isArenaUnit(unit) then
       self.arenaMatch:opponentNameUpdated(unit)
     end

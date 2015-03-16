@@ -94,6 +94,15 @@ describe "EventHandler", ->
 
         assert.spy(arenaMatchSpy).was.called!
 
+      describe "pet unit", ->
+        it "does not update the unit's name", ->
+          eventHandler = joinArena!
+          arenaMatchSpy = spy.on(eventHandler.arenaMatch, "opponentNameUpdated")
+
+          eventHandler.frame\triggerEvent("ARENA_OPPONENT_UPDATE", "arenapet1", "destroyed")
+
+          assert.spy(arenaMatchSpy).was_not.called!
+
   describe "UNIT_NAME_UPDATE", ->
     describe "arena unit is updated", ->
       it "alerts the arena tracker that an opponent unit name has been updated", ->
@@ -108,7 +117,7 @@ describe "EventHandler", ->
       it "does not alert that a unit name was updated", ->
         eventHandler = joinArena!
         stubbed = spy.on(eventHandler.arenaMatch, "opponentNameUpdated")
-        unit = "arenapet"
+        unit = "arenapet1"
         eventHandler.frame\triggerEvent("UNIT_NAME_UPDATE", unit)
 
         assert.spy(stubbed).was_not_called!

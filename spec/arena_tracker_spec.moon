@@ -6,13 +6,20 @@ require "src/arena_match"
 describe "ArenaTracker", ->
   after_each ->
     _G["ArenaMatches"] = {}
+    _G["SlashCmdList"] = {}
 
-  it "prints a welcome message", ->
-    print_spy = spy.on(_G, "print")
+  describe "Init", ->
+    it "prints a welcome message", ->
+      print_spy = spy.on(_G, "print")
 
-    ArenaTracker.Init()
+      ArenaTracker.Init()
 
-    assert.spy(print_spy).was_called_with("Welcome to ArenaTracker")
+      assert.spy(print_spy).was_called_with("Welcome to ArenaTracker")
+
+    it "registers the arena tracker slash commands", ->
+      ArenaTracker.Init()
+
+      assert.slash_command_registered("ARENA_TRACKER", ArenaTracker.SlashCommands)
 
   describe "#joined_arena", ->
     it "creates an arena match", ->
@@ -122,6 +129,42 @@ describe "ArenaTracker", ->
 
           assert.spy(mockArenaMatch.determineResults).was_not_called!
           assert.equal(nil, ArenaMatches[1])
+
+  describe "countWins", ->
+    it "counts the number of wins in the given collection of matches", ->
+      matches = {
+        {
+          won: true
+        },
+        {
+          won: false
+        },
+        {
+          won: true
+        }
+      }
+
+      winsCount = ArenaTracker\countWins(matches)
+
+      assert.equal(2, winsCount)
+
+  describe "countLoses", ->
+    it "counts the number of lost matches in a given collection of matches", ->
+      matches = {
+        {
+          won: true
+        },
+        {
+          won: false
+        },
+        {
+          won: true
+        }
+      }
+
+      lossesCount = ArenaTracker\countLosses(matches)
+
+      assert.equal(1, lossesCount)
 
   export buildMockArenaMatch = (attributes = {}) ->
     defaults = {

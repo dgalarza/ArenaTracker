@@ -1,0 +1,156 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <FontString name="ArenaTrackerUi_MatchResult_Template" virtual="true"
+    inherits="GameFontNormal">
+    <Anchors>
+      <Anchor point="TOPLEFT" relativeTo="$parent">
+        <Offset>
+          <AbsDimension x="0" y="-20" />
+        </Offset>
+      </Anchor>
+    </Anchors>
+  </FontString>
+
+  <Frame name="ArenaTrackerUiFrame" parent="UIParent" toplevel="true" enableMouse="true" hidden="true">
+    <Scripts>
+      <OnShow>
+        ArenaTrackerUi:Show()
+      </OnShow>
+    </Scripts>
+
+    <Size>
+      <AbsDimension x="650" y="650" />
+    </Size>
+
+    <Anchors>
+      <Anchor point="CENTER" />
+    </Anchors>
+
+    <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background"
+      edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+
+      <TileSize>
+        <AbsValue val="32" />
+      </TileSize>
+    </Backdrop>
+
+    <Layers>
+      <Layer level="ARTWORK">
+        <Texture name="ArenaTrackerUiFrameHeader"
+          file="Interface\DialogFrame\UI-DialogBox-Header">
+
+          <Size>
+            <AbsDimension x="400" y="64" />
+          </Size>
+          <Anchors>
+            <Anchor point="TOP">
+              <Offset>
+                <AbsDimension x="0" y="12" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </Texture>
+
+        <FontString name="ArenaTrackerUi_FrameTitle"
+          inherits="GameFontNormal" text="Arena Tracker">
+          <Anchors>
+            <Anchor point="TOP" relativeTo="ArenaTrackerUiFrameHeader">
+              <Offset>
+                <AbsDimension x="0" y="-14" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+
+      <Layer name="ArenaTrackerUi_RecordsLayer" level="OVERLAY">
+        <FontString name="ArenaTrackerUi_SkirmishRecord_Title"
+          inherits="GameFontNormal" text="Skirmish Record">
+          <Color r="255" g="255" b="255" a="1"/>
+
+          <Anchors>
+            <Anchor point="TOP" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="0" y="-30" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+
+        <FontString name="ArenaTrackerUi_SkirmishRecord" inherits="GameFontNormal">
+          <Color r="255" g="255" b="255" a="1"/>
+          <FontHeight val="15" />
+
+          <Anchors>
+            <Anchor point="TOP"
+              relativeTo="ArenaTrackerUi_SkirmishRecord_Title">
+              <Offset>
+                <AbsDimension x="0" y="-15" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+
+        <FontString name="ArenaTrackerUi_RankedRecord_Title"
+          inherits="GameFontNormal" text="Ranked Record">
+          <Color r="255" g="255" b="255" a="1"/>
+
+          <Anchors>
+            <Anchor point="TOP"
+              relativeTo="ArenaTrackerUi_SkirmishRecord">
+              <Offset>
+                <AbsDimension x="0" y="-30" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+
+        <FontString name="ArenaTrackerUi_RankedRecord" inherits="GameFontNormal">
+          <Color r="255" g="255" b="255" a="1"/>
+          <FontHeight val="15" />
+
+          <Anchors>
+            <Anchor point="TOP" relativeTo="ArenaTrackerUi_RankedRecord_Title">
+              <Offset>
+                <AbsDimension x="0" y="-15" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+
+      <Layer name="ArenaTrackerUi_MatchesLayer" level="OVERLAY">
+        <FontString name="ArenaTrackerUi_Match_Result"
+          inherits="ArenaTrackerUi_MatchResult_Template" text="Won">
+
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="0" y="0" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+
+    <Frames>
+      <Button name="ArenaTrackerUiCloseBtn" inherits="OptionsButtonTemplate" text="Close">
+        <Size>
+          <AbsDimension x="75" y="30" />
+        </Size>
+        <Anchors>
+          <Anchor point="BOTTOM" relativePoint="BOTTOM">
+            <Offset>
+              <AbsDimension x="0" y="15" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>ArenaTrackerUiFrame:Hide()</OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>
